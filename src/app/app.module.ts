@@ -7,6 +7,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {LoginModule} from './login/login.module';
+import {SignupModule} from "./signup/signup.module";
+
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import {LoginModule} from './login/login.module';
     BrowserModule,
     AppRoutingModule,
     LoginModule,
+    SignupModule
 
   ],
   providers: [],
