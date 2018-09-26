@@ -5,87 +5,106 @@
       <h1 class="text-center"> Sign Up</h1>
     </div>
     <form [formGroup]="signupForm" (ngSubmit)="handleSubmitForm()">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
             <label>First Name:</label>
             <input type="text" class="form-control" formControlName="firstName"/>
-          <span class="text-danger" *ngIf="signupForm.get('firstName').touched && !signupForm.get('firstName').valid" >Please enter your firstName...</span>
+            <span class="text-danger" *ngIf="signupForm.get('firstName').touched && !signupForm.get('firstName').valid">Please enter your firstName...</span>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Last Name:</label>
+            <input type="text" class="form-control" formControlName="lastName"/>
+            <span class="text-danger" *ngIf="!signupForm.get('lastName').valid && signupForm.get('lastName').touched">Please enter your lastName...</span>
+          </div>
         </div>
       </div>
 
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label>Last Name:</label>
-          <input type="text" class="form-control" formControlName="lastName"/>
-          <span class="text-danger" *ngIf="!signupForm.get('lastName').valid && signupForm.get('lastName').touched">Please enter your lastName...</span>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Address:</label>
+            <input type="text" class="form-control" formControlName="address"/>
+            <span class="text-danger" *ngIf="!signupForm.get('address').valid && signupForm.get('address').touched">Please enter your address...</span>
+          </div>
         </div>
-      </div>
-    </div>
 
-
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label>Address:</label>
-          <input type="text" class="form-control" formControlName="address"/>
-          <span class="text-danger" *ngIf="!signupForm.get('address').valid && signupForm.get('address').touched">Please enter your address...</span>
-        </div>
-      </div>
-
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label>Phone Number:</label>
-          <input type="text" class="form-control" formControlName="phoneNumber"/>
-          <span class="text-danger" *ngIf="!signupForm.get('phoneNumber').valid && signupForm.get('phoneNumber').touched">Please enter your phone number...</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label>Email Address:</label>
-          <input type="text" class="form-control" formControlName="email"/>
-          <span class="text-danger" *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">Please enter valid email...</span>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Phone Number:</label>
+            <input type="text" class="form-control" formControlName="phoneNumber"/>
+            <span class="text-danger"
+                  *ngIf="!signupForm.get('phoneNumber').valid && signupForm.get('phoneNumber').touched">Please enter your phone number...</span>
+          </div>
         </div>
       </div>
 
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label>Type Email Again:</label>
-          <input type="text" class="form-control" formControlName="conformEmail"/>
-          <span class="text-danger" *ngIf="!signupForm.get('conformEmail').valid && signupForm.get('conformEmail').touched">Please repeat email...</span>
+
+      <div class="row" formGroupName="emailCheck">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Email Address:</label>
+            <input type="text" class="form-control" formControlName="email"/>
+            <span class="text-danger" *ngIf="!signupForm.get('emailCheck.email').valid && signupForm.get('emailCheck.email').touched">Please enter valid email...</span>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Type Email Again:</label>
+            <input type="text" class="form-control" formControlName="conformEmail"/>
+            <!--<span class="text-danger"-->
+                  <!--*ngIf="!signupForm.get('emailCheck.conformEmail').valid && signupForm.get('emailCheck.conformEmail').touched">Please Enter Valid Email..</span>-->
+            <span class="text-danger" *ngIf="signupForm.get('emailCheck').touched && signupForm.get('emailCheck').hasError('emailNoMatch')">Seems Like Email Don't Match</span>
+          </div>
         </div>
       </div>
-    </div>
 
 
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label>Password:</label>
-          <input type="text" class="form-control" formControlName="password"/>
-          <span class="text-danger" *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched">Please enter a password...</span>
+      <div class="row" formGroupName="passwordCheck">
 
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Password:</label>
+              <input type="text" class="form-control" formControlName="password"/>
+              <!--<span class="text-danger" *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched">Please enter a password...</span>-->
+
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Type Password Again:</label>
+              <input type="text" class="form-control" formControlName="conformPassword"/>
+              <!--<span class="text-danger"-->
+                    <!--*ngIf="!signupForm.get('conformPassword').valid && signupForm.get('conformPassword').touched">Please repeat  password...</span>-->
+
+              <span class="text-danger" *ngIf="signupForm.get('passwordCheck').touched && signupForm.get('passwordCheck').hasError('passwordNoMatch')">Error in password Match</span>
+
+            </div>
+          </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Zip Code :</label>
+            <input type="text" class="form-control" formControlName="zipCode"/>
+            <span class="text-danger" *ngIf="!signupForm.get('zipCode').valid && signupForm.get('zipCode').touched">Please Enter Valid Zip Code...</span>
+
+          </div>
         </div>
       </div>
 
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label>Type Password Again:</label>
-          <input type="text" class="form-control" formControlName="conformPassword"/>
-          <span class="text-danger" *ngIf="!signupForm.get('conformPassword').valid && signupForm.get('conformPassword').touched">Please repeat  password...</span>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
+      <div class="row">
         <button [disabled]="!signupForm.valid" class="btn btn-primary ml-2" type="submit">Sign Up</button>
-        <button class="btn btn-danger ml-2" (click)="resetForm()">Reset</button>
-    </div>
+        <button class="btn btn-danger ml-2" type="button" (click)="resetForm()">Reset</button>
+      </div>
 
     </form>
   </div>

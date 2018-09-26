@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {zipCodeValidator} from './../Validators/validator';
+import {passwordValidator} from "./../Validators/passwordValidator";
+import {emailCheckValidator} from "./../Validators/emailCheckValidator";
 
 @Component({
   selector: 'app-signup',
@@ -10,29 +13,41 @@ export class SignupComponent implements OnInit {
 
   signupForm : FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.signupForm = this.fb.group({
+      firstName: ['',[Validators.required, Validators.minLength(4)]],
+      lastName: ['', Validators.required],
+      address: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
 
-    this.signupForm = new FormGroup({
-      "firstName": new FormControl(null,Validators.required),
-      "lastName": new FormControl(null, Validators.required),
-      "address": new FormControl(null, Validators.required),
-      "phoneNumber": new FormControl(null, Validators.required),
-      "email": new FormControl(null, [Validators.required, Validators.email]),
-      "conformEmail": new FormControl(null, [Validators.required, Validators.email]),
-      "password": new FormControl(null, Validators.required),
-      "conformPassword": new FormControl(null, Validators.required)
+      emailCheck: this.fb.group({
+        email : ['', [Validators.required, Validators.email]],
+        conformEmail:['', [Validators.required, Validators.email]],
+      },{validator: emailCheckValidator}),
 
-    })
+      passwordCheck: this.fb.group({
+        password:"",
+        conformPassword:'',
+      }, {validator: passwordValidator}),
+
+      zipCode:['', zipCodeValidator]
+
+
+    });
+
   }
 
   handleSubmitForm(){
       console.log("Sign Up form value is :: ", this.signupForm.value);
+
+      console.log("error :: ", this.signupForm.controls.zipCode);
   }
 
   resetForm(){
-    this.signupForm.reset();
+    // this.signupForm.reset();
+    console.log("error :: ", this.signupForm.controls.zipCode);
   }
 
 }
